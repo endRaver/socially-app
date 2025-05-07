@@ -34,7 +34,7 @@ export async function getPosts() {
       },
       include: {
         author: {
-          select: {
+          select: { 
             id: true,
             name: true,
             username: true,
