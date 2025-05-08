@@ -185,7 +185,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\work\\socially-app\\src\\generated\\prisma",
+      "value": "G:\\RoadToFullStack\\Fullstack\\socially\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -199,7 +199,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\work\\socially-app\\prisma\\schema.prisma",
+    "sourceFilePath": "G:\\RoadToFullStack\\Fullstack\\socially\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -213,12 +213,11 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://neondb_owner:npg_Veq8toL2KhNF@ep-long-water-a4vpc5h5-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
       }
     }
   },
