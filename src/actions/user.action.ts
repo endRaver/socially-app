@@ -1,8 +1,8 @@
 "use server";
 
+import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import prisma from "@/lib/prisma";
 
 export async function syncUser() {
   try {
@@ -22,9 +22,8 @@ export async function syncUser() {
     const dbUser = await prisma.user.create({
       data: {
         clerkId: userId,
-        name: `${user.firstName ?? ""} ${user.lastName ?? ""}`,
-        username:
-          user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
+        name: `${user.firstName || ""} ${user.lastName || ""}`,
+        username: user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
         email: user.emailAddresses[0].emailAddress,
         image: user.imageUrl,
       },
@@ -32,7 +31,7 @@ export async function syncUser() {
 
     return dbUser;
   } catch (error) {
-    console.error("Error syncing user", error);
+    console.log("Error in syncUser", error);
   }
 }
 
@@ -58,7 +57,8 @@ export async function getDbUserId() {
   if (!clerkId) return null;
 
   const user = await getUserByClerkId(clerkId);
-  if (!user) return null;
+
+  if (!user) throw new Error("User not found");
 
   return user.id;
 }
@@ -142,6 +142,7 @@ export async function toggleFollow(targetUserId: string) {
             followingId: targetUserId,
           },
         }),
+
         prisma.notification.create({
           data: {
             type: "FOLLOW",
@@ -155,7 +156,7 @@ export async function toggleFollow(targetUserId: string) {
     revalidatePath("/");
     return { success: true };
   } catch (error) {
-    console.log("Error toggling follow", error);
+    console.log("Error in toggleFollow", error);
     return { success: false, error: "Error toggling follow" };
   }
 }

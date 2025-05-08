@@ -25,12 +25,12 @@ function CreatePost() {
     try {
       const result = await createPost(content, imageUrl);
 
-      if (result.success) {
+      if (result?.success) {
         setContent("");
         setImageUrl("");
         setShowImageUpload(false);
 
-        toast.success(result.message);
+        toast.success("Post created successfully");
       }
     } catch (error) {
       console.error(error);

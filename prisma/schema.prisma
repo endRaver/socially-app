@@ -90,8 +90,8 @@ model Follows{
   createdAt DateTime @default(now())
 
   // Relations
-  follower User @relation("following", fields: [followerId], references: [id], onDelete: Cascade)
-  following User @relation("follower", fields: [followingId], references: [id], onDelete: Cascade)
+  follower User @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@index([followerId, followingId]) // composite index for faster queries
   @@id([followerId, followingId]) // composite primary key prevents duplicate follows
